@@ -1,9 +1,11 @@
 class TasksController < ApplicationController
-  before_action :all_tasks, only: [:index, :create]
+  before_action :all_tasks, only: [:index, :create :update]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
 
-
+def update
+  @task.update(task_params)
+end
   # GET /tasks
   # GET /tasks.json
   #we no longer need this as we have the before action.
@@ -22,14 +24,15 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST /tasks
   # POST /tasks.json
   def create
     # @task = Task.new(task_params)
     @task = Task.create(task_params)
+  end
 
     # respond_to do |format|
     #   if @task.save
@@ -38,22 +41,20 @@ class TasksController < ApplicationController
     #   else
     #     format.html { render :new }
     #     format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+   
 
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
-  def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
-    end
+  # def update
+  #   respond_to do |format|
+  #     if @task.update(task_params)
+  #       format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @task }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @task.errors, status: :unprocessable_entity }
+  #     end
+  #   end
   end
 
   # DELETE /tasks/1
@@ -69,7 +70,7 @@ class TasksController < ApplicationController
   private
 
   def all_tasks
-    @tasks = task.all
+    @tasks = Task.all
   end
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -80,4 +81,4 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:description, :deadline)
     end
-end
+
