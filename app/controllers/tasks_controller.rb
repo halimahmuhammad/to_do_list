@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :all_tasks, only: [:index, :create :update]
+  before_action :all_tasks, only: [:index, :create, :update]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
 
